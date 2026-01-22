@@ -18,7 +18,9 @@ app.use(cors({
   origin: "https://ecommercef-ashen.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
-}));app.get('/',(req,res)=>{
+}));
+app.options("*", cors()); // 👈 THIS fixes preflight
+app.get('/',(req,res)=>{
     return res.send("Server is running");
 })
 
