@@ -13,8 +13,12 @@ const orderRoute=require("./src/routes/orderRoute")
 const paymentRoutes=require("./src/routes/paymentRoutes")
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-app.use(cors());
-app.get('/',(req,res)=>{
+
+app.use(cors({
+  origin: "https://ecommercef-ashen.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));app.get('/',(req,res)=>{
     return res.send("Server is running");
 })
 
