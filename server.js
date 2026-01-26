@@ -15,7 +15,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 app.use(cors({
-  origin: "https://ecommercef-ashen.vercel.app",
+  origin: " http://localhost:5173/",
+  //change
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
