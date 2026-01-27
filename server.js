@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 /* routes */
-const {productRoutes} = require("./src/routes/productRoute");
+const productRoutes = require("./src/routes/productRoute");
 const userRoute = require("./src/routes/userRoute");
 const cartRoute = require("./src/routes/cartRoute");
 const orderRoute = require("./src/routes/orderRoute");
