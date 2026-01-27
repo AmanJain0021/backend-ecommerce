@@ -10,4 +10,10 @@ productRoutes.put('/:id',updateProduct)
 productRoutes.patch('/:id',softDeleteProduct)
 
 
-module.exports=productRoutes,getAllProducts,getProductById,updateProduct,softDeleteProduct
+module.exports = {
+  productRoutes,
+  getAllProducts,
+  getProductById,
+  updateProduct,
+  softDeleteProduct,
+};
