@@ -1,54 +1,56 @@
-const express=require('express');
-const dotenv=require('dotenv');
-const connectDB=require('./src/config/db.config');
-const cors=require('cors');
-const path=require('path');
-dotenv.config();
-const app=express();
-const port=process.env.PORT;
-const productRoutes=require("./src/routes/productRoute")
-const userRoute=require("./src/routes/userRoute")
-const cartRoute=require("./src/routes/cartRoute")
-const orderRoute=require("./src/routes/orderRoute")
-const paymentRoutes=require("./src/routes/paymentRoutes")
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+const express = require("express");
+const dotenv = require("dotenv");
+const connectDB = require("./src/config/db.config");
+const cors = require("cors");
 
+dotenv.config();
+
+const app = express();
+
+/* ✅ CORS MUST BE FIRST */
 app.use(cors({
   origin: [
-    " http://localhost:5173/",
-  "https://fronecommerce.vercel.app/"
+    "http://localhost:5173",
+    "https://fronecommerce.vercel.app"
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
-app.options("*", cors()); // 👈 THIS fixes preflight
-app.get('/',(req,res)=>{
-    return res.send("Server is running");
-})
 
+/* body parsers AFTER cors */
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+/* routes */
+const productRoutes = require("./src/routes/productRoute");
+const userRoute = require("./src/routes/userRoute");
+const cartRoute = require("./src/routes/cartRoute");
+const orderRoute = require("./src/routes/orderRoute");
+const paymentRoutes = require("./src/routes/paymentRoutes");
 
-//routes
-app.use("/api/products",productRoutes);
-app.use("/api/users",userRoute)
-app.use("/api/cart",cartRoute)
-app.use("/api/orders",orderRoute)
+app.get("/", (req, res) => {
+  res.send("Server is running");
+});
+
+app.use("/api/products", productRoutes);
+app.use("/api/users", userRoute);
+app.use("/api/cart", cartRoute);
+app.use("/api/orders", orderRoute);
 app.use("/api/payment", paymentRoutes);
 
-const startServer=async()=>{
-    try {
-        await connectDB();
-        app.listen(port,()=>{
-            console.log('Server is started');
-            console.log(`Server is running http:/localhost:${port}`);
-            console.log("Database connected")
-            
-        })
-    } catch (error) {
-        console.error(`Server start failed `,error.message);
-        
-    }
-}
+/* ✅ PORT FIX */
+const PORT = process.env.PORT || 5000;
+
+const startServer = async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+      console.log("Database connected");
+    });
+  } catch (error) {
+    console.error("Server start failed", error.message);
+  }
+};
 
 startServer();
