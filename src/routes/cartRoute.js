@@ -1,12 +1,13 @@
 const mongoose=require("mongoose");
 const express=require("express");
 const cartRoute=express.Router();
-const{addToCart,getCart,removeItemFromCart}=require('../controllers/cartController')
+const{addToCart,getCart,removeItemFromCart,decreaseItemQuantity}=require('../controllers/cartController')
 const verifyToken = require("../middlewares/authMiddleware");
 
 
 cartRoute.post('/add',verifyToken,addToCart)
 cartRoute.get('/',verifyToken,getCart)
+cartRoute.post('/decrease',decreaseItemQuantity,)
 cartRoute.delete("/remove", verifyToken, removeItemFromCart);
 
 module.exports=cartRoute
