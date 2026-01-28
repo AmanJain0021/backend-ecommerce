@@ -20,11 +20,16 @@ const verifyToken = (req, res, next) => {
       });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+   const decoded = jwt.verify(token, process.env.JWT_SECRET);
+console.log("FULL DECODED TOKEN:", decoded);
 
-    req.user = decoded; // { userId, role }
+req.user = {
+  userId: decoded.userId || decoded._id,
+  role: decoded.role,
+};
 
-    next();
+next();
+
   } catch (error) {
     return res.status(401).json({
       success: false,

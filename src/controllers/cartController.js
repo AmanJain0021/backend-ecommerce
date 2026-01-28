@@ -212,6 +212,14 @@ exports.decreaseItemQuantity = async (req, res) => {
  try {
   const userId=req.user.userId;
   const {productId}=req.body;  // 1️⃣ Validate IDs
+
+  if (!req.user || !req.user.userId) {
+  return res.status(401).json({
+    success: false,
+    message: "Unauthorized acess",
+  });
+}
+
     if (
       !mongoose.Types.ObjectId.isValid(userId) ||
       !mongoose.Types.ObjectId.isValid(productId)
@@ -267,7 +275,8 @@ return res.status(200).json({
    } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "Internal server error",
+      message:error.message
+     
     });
   }
 };
