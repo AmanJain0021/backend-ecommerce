@@ -7,7 +7,7 @@ const verifyToken = require("../middlewares/authMiddleware");
 
 cartRoute.post('/add',verifyToken,addToCart)
 cartRoute.get('/',verifyToken,getCart)
-cartRoute.post('/decrease',decreaseItemQuantity,)
+cartRoute.patch('/decrease',decreaseItemQuantity,)
 cartRoute.delete("/remove", verifyToken, removeItemFromCart);
 
 module.exports=cartRoute
