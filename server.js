@@ -13,7 +13,7 @@ app.use(cors({
     "http://localhost:5173",
     "https://fronecommerce.vercel.app"
   ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE","PATCH"],
   credentials: true
 }));
 
